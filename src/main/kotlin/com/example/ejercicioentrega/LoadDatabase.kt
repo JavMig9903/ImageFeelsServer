@@ -12,25 +12,10 @@ class LoadDatabase {
     }
 
     @Bean
-    fun initDataBase(trackRepositorio : TrackRepository): CommandLineRunner {
+    fun initDataBase(repoUsers : UsersRepository): CommandLineRunner {
         return CommandLineRunner { args: Array<String?>? ->
-            logger.info("Preloading "+trackRepositorio.save(Track("Weird Fishes / Arpeggi","Rainbows","Radiohead")))
-            logger.info("Preloading "+trackRepositorio.save(Track("Reckoner","Rainbows","Radiohead")))
-            logger.info("Preloading "+trackRepositorio.save(Track("Faust Arp","Rainbows","Radiohead")))
-            logger.info("Preloading "+trackRepositorio.save(Track("House of cards","Rainbows","Radiohead")))
-            logger.info("Preloading "+trackRepositorio.save(Track("Nude","Rainbows","Radiohead")))
-
-            logger.info("Preloading "+trackRepositorio.save(Track("Lip Gloss","Martes 13","Natos y Waor")))
-            logger.info("Preloading "+trackRepositorio.save(Track("Carretera","Hijos de la Ruina Vol. 2","Natos y Waor")))
-            logger.info("Preloading "+trackRepositorio.save(Track("Problemas","Martes 13","Natos y Waor")))
-            logger.info("Preloading "+trackRepositorio.save(Track("Camarón","Martes 13","Natos y Waor")))
-            logger.info("Preloading "+trackRepositorio.save(Track("Piratas","Cicatrices","Natos y Waor")))
-
-            logger.info("Preloading "+trackRepositorio.save(Track("La placita","La placita - Single","Delaossa")))
-            logger.info("Preloading "+trackRepositorio.save(Track("Si me quieren matar","Salí del barrio - Single","Delaossa")))
-            logger.info("Preloading "+trackRepositorio.save(Track("Marte","Marte - Single","Delaossa")))
-            logger.info("Preloading "+trackRepositorio.save(Track("Lejos","Lejos - Single","Delaossa")))
-            logger.info("Preloading "+trackRepositorio.save(Track("Dicen mi","Perro Andaluz","Delaossa")))
+            logger.info("Preloading "+repoUsers.save(Users("ejemplo1@gmail.com","ejemplo1@gmail.com".substringBeforeLast('@'))))
+            logger.info("Preloading "+repoUsers.save(Users("ejemplo2@gmail.com","ejemplo2@gmail.com".substringBeforeLast('@'))))
         }
     }
 }
