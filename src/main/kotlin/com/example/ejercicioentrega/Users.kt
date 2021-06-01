@@ -8,15 +8,22 @@ import javax.persistence.*
 class Users{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Registro")
+    var numero : Long = 0
+
     @Column(name = "IdUser")
     var IdUser:String = ""
 
     @Column(name = "nameUser")
     var nameUSer:String = ""
 
-    constructor(IdUser:String,nameUser:String){
+    @Column(name = "imageUser")
+    var imageUser:String = ""
+
+    constructor(IdUser:String,nameUser:String,imageUser:String){
         this.IdUser=IdUser
         this.nameUSer=nameUser
+        this.imageUser=imageUser
     }
 
     override fun equals(other: Any?): Boolean {
