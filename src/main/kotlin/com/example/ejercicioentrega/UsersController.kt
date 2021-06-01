@@ -17,36 +17,16 @@ class UsersController(private val repoUsers: UsersRepository, private val repoFo
         return repoPubli.findAll()
     }
 
-    //curl -v localhost:8081/getPublicUser/ejemplo1
-    @GetMapping("/getPublicUser/{nomUser}")
-    fun getPublicUser(@PathVariable nomUser:String): List<Publications>{
-        val porf: MutableList<Publications> = repoPubli.findAll()
-        var final:MutableList<Publications> = TODO()
-        var id:Long=0
-        var cont=0
-        porf.forEach {
-            if (it.nameUsu==nomUser){
-                id=it.numero
-                final.add(cont,it)
-                cont++
-            }
-        }
-        var listafinal: List<Publications> = final
-        return listafinal
-    }
+
     //curl -v localhost:8081/givemeuser?nameUser=ejemplo1
     //http://localhost:8081/givemeuser?nameUser=ejemplo1
     @GetMapping("/givemeuser")
     fun getUser(@RequestParam("nameUser",defaultValue = "Nose")nombre:String) : Users{
         val ej: MutableList<Users> = repoUsers.findAll()
-        var id:Long=0
-        ej.forEach {
-            if (it.nameUSer==nombre){
-                id=it.numero
-                return@forEach
-            }
+        var listafin= ej.filter {
+            it.nameUSer.contentEquals(nombre)
         }
-        return repoUsers.findById(id).get()
+        return listafin[0]
     }
 
 
@@ -60,8 +40,17 @@ class UsersController(private val repoUsers: UsersRepository, private val repoFo
     @GetMapping("/insertUser/{idUser}/{imgUser}")
     fun insertUser(@PathVariable idUser:String,@PathVariable imgUser:String){
         var auxiliar:String=imgUser.replace("@","/")
-        print(auxiliar)
         repoUsers.save(Users(idUser,idUser.substringBeforeLast('@'),auxiliar))
+    }
+
+    //curl -v localhost:8081/getPublicUser/ejemplo1
+    @GetMapping("/getPublicUser/{nomUser}")
+    fun getPublicUser(@PathVariable nomUser:String): List<Publications>{
+        var ejemplo:MutableList<Publications> = repoPubli.findAll()
+        var listafin= ejemplo.filter {
+            it.nameUsu.contentEquals(nomUser)
+        }
+    return listafin
     }
 
     //curl -v localhost:8081/countTrack
