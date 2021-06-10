@@ -17,13 +17,17 @@ class Publications {
     @Column(name = "ImgPerf")
     var ImgPerf:String = ""
 
-    @Column(name = "ImgSubida")
-    var ImgSubida:String = ""
+    @Column(name = "ImgUrl")
+    var ImgUrl:String = ""
 
-    constructor(nameUsu:String,ImgPerf:String,ImgSubida:String){
+    @Column(name = "Img64Base",length = 999999999)
+    var Img64Base:String = ""
+
+    constructor(nameUsu:String,ImgPerf:String,ImgUrl:String,Img64Base:String){
         this.nameUsu=nameUsu
         this.ImgPerf=ImgPerf
-        this.ImgSubida=ImgSubida
+        this.ImgUrl=ImgUrl
+        this.Img64Base=Img64Base
     }
 
     override fun equals(other: Any?): Boolean {
@@ -39,7 +43,7 @@ class Publications {
     }
 
     override fun toString(): String {
-        return "\nEl usuario $nameUsu ha subido la foto $ImgSubida"
+        return "\nEl usuario $nameUsu ha subido la foto $Img64Base"
     }
 
 }
