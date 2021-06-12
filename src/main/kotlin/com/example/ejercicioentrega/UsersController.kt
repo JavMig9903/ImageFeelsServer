@@ -27,13 +27,27 @@ class UsersController(private val repoUsers: UsersRepository, private val repoPu
 
     //curl -v localhost:8081/givemeuser?nameUser=ejemplo1
     //http://localhost:8081/givemeuser?nameUser=ejemplo1
-    @GetMapping("/givemeuser")
-    fun getUser(@RequestParam("nameUser",defaultValue = "Nose")nombre:String) : Users{
+    @GetMapping("/editUser/{nombreantes}/{nombreuser}/{photouser}")
+    fun editUser(@PathVariable nombreantes:String,@PathVariable nombreuser:String,@PathVariable photouser:String){
         val ej: MutableList<Users> = repoUsers.findAll()
         var listafin= ej.filter {
-            it.nameUSer.contentEquals(nombre)
+            it.nameUSer.contentEquals(nombreantes)
         }
-        return listafin[0]
+        repoUsers.deleteById(listafin[0].numero)
+        repoUsers.save(Users(listafin[0].emailUser,nombreuser,photouser.replace("@1903","/")))
+
+
+
+        var ejemplo:MutableList<Publications> = repoPubli.findAll()
+        var listapublic= ejemplo.filter {
+            it.nameUsu.contentEquals(nombreantes)
+        }
+        listapublic.forEach {
+            var elemento = it
+            repoPubli.deleteById(elemento.numero)
+            var auxiliar= photouser.replace("@1903","/")
+            repoPubli.save(Publications(nombreuser,auxiliar,elemento.ImgUrl,elemento.numero))
+        }
     }
 
 
@@ -43,14 +57,15 @@ class UsersController(private val repoUsers: UsersRepository, private val repoPu
         return repoUsers.findById(id).get()
     }
 
-    //curl -v localhost:8081/insertUser/ejemplo@gmail.com/https:@@ceslava.s3-accelerate.amazonaws.com@2016@04@mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png
-    @PostMapping("/insertPublic/{idUser}")
-    fun insertPublic(@PathVariable idUser:String,@RequestBody body:String){//(name = "file",required = false) imgSubir:MultipartFile){
+    //curl -v localhost:8081/insertUser/hdudvd/https:@@ceslava.s3-accelerate.amazonaws.com@2016@04@mistery-man-gravatar-wordpress-avatar-persona-misteriosa-510x510.png
+    @GetMapping("/insertPublic/{idUser}/{body}")
+    fun insertPublic(@PathVariable idUser:String,@PathVariable body:String){//(name = "file",required = false) imgSubir:MultipartFile){
         var usu:List<Users> =repoUsers.findAll()
         var lista = usu.filter {
-            it.IdUser.contentEquals(idUser)
+            it.nameUSer.contentEquals(idUser)
         }
-        repoPubli.save(Publications(lista[0].nameUSer,lista[0].imageUser,"none",body))
+        var bodyfin = body.replace("@1903","/")
+        repoPubli.save(Publications(lista[0].nameUSer,lista[0].imageUser,bodyfin))
         /**
         var byteArray: ByteArray? = Base64.getDecoder().decode(imgSubir)
         //repoPubli.save(Publications(lista[0].nameUSer,lista[0].imageUser,))

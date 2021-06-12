@@ -11,8 +11,8 @@ class Users{
     @Column(name = "Registro")
     var numero : Long = 0
 
-    @Column(name = "IdUser")
-    var IdUser:String = ""
+    @Column(name = "emailUser",unique = true)
+    var emailUser:String = ""
 
     @Column(name = "nameUser")
     var nameUSer:String = ""
@@ -20,8 +20,8 @@ class Users{
     @Column(name = "imageUser")
     var imageUser:String = ""
 
-    constructor(IdUser:String,nameUser:String,imageUser:String){
-        this.IdUser=IdUser
+    constructor(emailUser:String,nameUser:String,imageUser:String){
+        this.emailUser=emailUser
         this.nameUSer=nameUser
         this.imageUser=imageUser
     }
@@ -35,7 +35,7 @@ class Users{
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(IdUser,nameUSer)
+        return Objects.hash(emailUser,nameUSer)
     }
 
     override fun toString(): String {

@@ -1,5 +1,6 @@
 package com.example.ejercicioentrega
 
+import org.springframework.web.multipart.MultipartFile
 import java.util.*
 import javax.persistence.*
 
@@ -20,14 +21,17 @@ class Publications {
     @Column(name = "ImgUrl")
     var ImgUrl:String = ""
 
-    @Column(name = "Img64Base",length = 999999999)
-    var Img64Base:String = ""
-
-    constructor(nameUsu:String,ImgPerf:String,ImgUrl:String,Img64Base:String){
+    constructor(nameUsu:String,ImgPerf:String,ImgUrl:String){
         this.nameUsu=nameUsu
         this.ImgPerf=ImgPerf
         this.ImgUrl=ImgUrl
-        this.Img64Base=Img64Base
+    }
+
+    constructor(nameUsu: String, ImgPerf: String, ImgUrl: String,numero: Long) {
+        this.nameUsu = nameUsu
+        this.ImgPerf = ImgPerf
+        this.ImgUrl = ImgUrl
+        this.numero = numero
     }
 
     override fun equals(other: Any?): Boolean {
@@ -43,7 +47,7 @@ class Publications {
     }
 
     override fun toString(): String {
-        return "\nEl usuario $nameUsu ha subido la foto $Img64Base"
+        return "\nEl usuario $nameUsu ha subido la foto $ImgUrl"
     }
 
 }
